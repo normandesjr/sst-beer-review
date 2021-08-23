@@ -6,8 +6,8 @@ const dynamoDB = new DynamoDBClient({ })
 export const main: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
-  
-  const beerScore = JSON.parse(event.body!)
+
+  const beerScore: BeerScore = JSON.parse(event.body ?? '{}')
 
   const params = {
     TableName: process.env.tableName,
@@ -24,3 +24,9 @@ export const main: APIGatewayProxyHandlerV2 = async (
     statusCode: 201
   };
 };
+
+interface BeerScore {
+    user: string;
+    beer: string;
+    score: string;
+}

@@ -7,8 +7,8 @@ export const main: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
 
-  const userId = event.queryStringParameters!.user || ''
-  const beerName = event.queryStringParameters!.beer || ''
+  const userId = event.queryStringParameters?.user ?? ''
+  const beerName = event.queryStringParameters?.beer ?? ''
 
   const params = {
     TableName: process.env.tableName,
@@ -23,6 +23,6 @@ export const main: APIGatewayProxyHandlerV2 = async (
   return {
     statusCode: 200,
     headers: { "Content-Type": "application/json" },
-    body: `{score: ${result.Item!.score.N}}`,
+    body: JSON.stringify({score: result.Item?.score.N ?? 0}),
   };
 };
